@@ -1,8 +1,7 @@
-module.exports = [
+module.exports.text = [
     'anime',
     'arigatou',
     'baka',
-    'chikan',
     'daisuki',
     'daijobu',
     'desu',
@@ -10,7 +9,6 @@ module.exports = [
     'gohan',
     'gomen',
     'gosaimasu',
-    'hentai',
     'ichigo',
     'imouto',
     'katana',
@@ -19,7 +17,6 @@ module.exports = [
     'konbawa',
     'kudasai',
     'kurisumasu',
-    'kuso',
     'manga',
     'ninja',
     'ohayou',
@@ -31,10 +28,16 @@ module.exports = [
     'oniichan',
     'otaku',
     'otosan',
-    'pantsu',
     'rabu',
     'sake',
-    'samurai',
+    'samurai'
+];
+
+module.exports.nsfw = [
+    'chikan',
+    'hentai',
+    'kuso',
+    'pantsu',
     'yaoi',
     'yuri'
 ];

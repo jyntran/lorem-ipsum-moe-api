@@ -7,35 +7,38 @@ function getText(req, res) {
     req.query.w ? numWords = req.query.w : numWords = 8;
     req.query.s ? numSentences = req.query.s : numSentences = 6;
     req.query.p ? numParagraphs = req.query.p : numParagraphs = 3;
+    req.query.lorem ? lorem = req.query.lorem : lorem = 0;
 
-    var result= compose(numParagraphs, numSentences, numWords);
+    var result = compose(numParagraphs, numSentences, numWords, lorem);
     res.send(result);    
 }
 
-function compose(numParagraphs, numSentences, numWords) {
+function compose(numParagraphs, numSentences, numWords, lorem) {
     var result = [];
     for (var i=0; i<numParagraphs; i++) {
-        result.push(composeParagraph(numSentences, numWords));   
+        if (i==0) result.push(composeParagraph(numSentences, numWords, lorem));   
+        else result.push(composeParagraph(numSentences, numWords, false));   
     }
     return result;
 }
 
-function composeParagraph(numSentences, numWords) {
+function composeParagraph(numSentences, numWords, lorem) {
      var p = '';
      for (var i=0; i<numSentences; i++) {
-        p = p.concat(composeSentence(numWords));
+        if (i==0) p = p.concat(composeSentence(numWords, lorem));
+        else p = p.concat(composeSentence(numWords, false));
         if (i<numSentences-1)
             p = p.concat(' ');
      }
-     return p;   
+     return p;
 }
 
-function composeSentence(numWords) {
+function composeSentence(numWords, lorem) {
     var s = '';
     for (var i=0; i<numWords; i++) {
-        if (i==0)
-            s = s.concat(capitalize(randomWord()));
-        else
+        if (i==0) {
+            lorem ? s = s.concat('Roremu ipusamu') : s = s.concat(capitalize(randomWord()));
+        } else
             s = s.concat(randomWord());
 
         if (i==numWords-1)

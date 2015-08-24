@@ -1,0 +1,23 @@
+{
+  "name": "loremipsum.moe",
+  "version": "1.0.0",
+  "description": "loremipsum.moe",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jyntran/lorem-ipsum-moe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jyntran/lorem-ipsum-moe/issues"
+  },
+  "homepage": "https://github.com/jyntran/lorem-ipsum-moe#readme"
+}

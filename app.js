@@ -1,6 +1,6 @@
 var express = require('express');
 
-var port = process.env.PORT || 1234;
+var port = 8001;
 var routes = require('./routes/routes');
 
 var app = express();

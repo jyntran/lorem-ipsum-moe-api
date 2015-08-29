@@ -1,11 +1,9 @@
 var express = require('express');
 
-var port = 8001;
+var port = 8888;
 var routes = require('./routes/routes');
 
 var app = express();
-
-app.use(express.static('./'));
 
 app.use('/', routes);
 

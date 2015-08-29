@@ -9,6 +9,9 @@ router.use(function(req, res, next) {
 });
 
 router.get('/get', textHandler.getText);
+router.get('/', function(req, res) {
+    res.redirect('/#/docs');
+});
 
 router.use('/*', function (req, res, next) {
     var err = new Error('Not Found');

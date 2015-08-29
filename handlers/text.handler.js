@@ -4,16 +4,19 @@ var nsfw = require('../data/vocabulary').nsfw;
 module.exports.getText = getText;
 
 function getText(req, res) {
-    var numWords, numSentences, numParagraphs;
-    var lorem, nsfw;
-    req.query.w ? numWords = req.query.w : numWords = 8;
-    req.query.s ? numSentences = req.query.s : numSentences = 6;
-    req.query.p ? numParagraphs = req.query.p : numParagraphs = 3;
-    req.query.lorem ? lorem = req.query.lorem : lorem = 0;
-    req.query.nsfw ? nsfw = req.query.nsfw : nsfw = 0;
-
-    var result = compose(numParagraphs, numSentences, numWords, lorem, nsfw);
+    var query = processQuery(req.query);
+    var result = compose(query.p, query.s, query.w, query.lorem, query.nsfw);
     res.send(result);    
+}
+
+function processQuery(query){
+    var result = {};
+    query.w ? result.w = query.w : result.w = 8;
+    query.s ? result.s = query.s : result.s = 6;
+    query.p ? result.p = query.p : result.p = 3;
+    query.lorem == "true" ? result.lorem = true : result.lorem = false;
+    query.nsfw == "true" ? result.nsfw = true : result.nsfw = false;
+    return result;
 }
 
 function compose(numParagraphs, numSentences, numWords, lorem, nsfw) {
@@ -40,7 +43,7 @@ function composeSentence(numWords, lorem, nsfw) {
     var s = '';
     for (var i=0; i<numWords; i++) {
         if (i==0) {
-            lorem==1 ? s = s.concat('Roremu ipusamu') : s = s.concat(capitalize(randomWord(nsfw)));
+            lorem ? s = s.concat('Roremu ipusamu') : s = s.concat(capitalize(randomWord(nsfw)));
         } else
             s = s.concat(randomWord(nsfw));
 
@@ -57,7 +60,7 @@ function capitalize(string) {
 }
 
 function randomWord(nsfwOn) {
-    if (nsfwOn==1) {
+    if (nsfwOn) {
         var list = text.concat(nsfw);
         console.log(list)
         var id = Math.floor(Math.random() * list.length);

@@ -18,6 +18,6 @@
 
 `?p={number-of-paragraphs}` - default is 3
 
-`?lorem={0|1}` - default is 0
+`?lorem={true|false}` - default is false
 
-`?nsfw={0|1}` - default is 0
+`?nsfw={true|false}` - default is false

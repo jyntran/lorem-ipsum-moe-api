@@ -5,7 +5,7 @@ module.exports.getText = getText;
 
 function getText(req, res) {
     var query = processQuery(req.query);
-    var result = compose(query.p, query.s, query.w, query.lorem, query.nsfw);
+    var result = compose(query.p, query.s, query.w, query.lorem, query.nsfw, query.format);
     res.send(result);    
 }
 
@@ -16,14 +16,27 @@ function processQuery(query){
     query.p ? result.p = query.p : result.p = 3;
     query.lorem == "true" ? result.lorem = true : result.lorem = false;
     query.nsfw == "true" ? result.nsfw = true : result.nsfw = false;
+    query.format ? result.format = query.format : result.format = "json";
     return result;
 }
 
-function compose(numParagraphs, numSentences, numWords, lorem, nsfw) {
-    var result = [];
-    for (var i=0; i<numParagraphs; i++) {
-        if (i==0) result.push(composeParagraph(numSentences, numWords, lorem, nsfw));   
-        else result.push(composeParagraph(numSentences, numWords, false, nsfw));   
+function compose(numParagraphs, numSentences, numWords, lorem, nsfw, format) {
+    var result;
+    if (format == "text" || format == "html") {
+        result = '<pre>';
+        for (var i=0; i<numParagraphs; i++) {
+            format == "text" ? result = result.concat('<p>') : result = result.concat('&lt;p&gt;');
+            if (i==0) result = result.concat(composeParagraph(numSentences, numWords, lorem, nsfw));   
+            else result = result.concat(composeParagraph(numSentences, numWords, false, nsfw));   
+            format == "text" ? result = result.concat('</p>') : result = result.concat('&lt;&#92;p&gt;');
+        }        
+        result = result.concat('</pre>');
+    } else {
+        result = [];
+        for (var i=0; i<numParagraphs; i++) {
+            if (i==0) result.push(composeParagraph(numSentences, numWords, lorem, nsfw));   
+            else result.push(composeParagraph(numSentences, numWords, false, nsfw));   
+        }
     }
     return result;
 }

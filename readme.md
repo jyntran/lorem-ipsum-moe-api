@@ -21,3 +21,5 @@
 `?lorem={true|false}` - default is false
 
 `?nsfw={true|false}` - default is false
+
+`?format={json|text|html}` - default is json

@@ -23,14 +23,13 @@ function processQuery(query){
 function compose(numParagraphs, numSentences, numWords, lorem, nsfw, format) {
     var result;
     if (format == "text" || format == "html") {
-        result = '<pre>';
+	result = '';
         for (var i=0; i<numParagraphs; i++) {
-            format == "text" ? result = result.concat('<p>') : result = result.concat('&lt;p&gt;');
+            format == "text" ? result = result.concat('') : result = result.concat('<p>');
             if (i==0) result = result.concat(composeParagraph(numSentences, numWords, lorem, nsfw));   
             else result = result.concat(composeParagraph(numSentences, numWords, false, nsfw));   
-            format == "text" ? result = result.concat('</p>') : result = result.concat('&lt;&#92;p&gt;');
+            format == "text" ? result = result.concat('\n\n') : result = result.concat('</p>');
         }        
-        result = result.concat('</pre>');
     } else {
         result = [];
         for (var i=0; i<numParagraphs; i++) {
